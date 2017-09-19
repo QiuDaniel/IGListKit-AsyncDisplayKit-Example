@@ -1,0 +1,6 @@
+framework module Pods_ASDKgram_Swift {
+  umbrella header "Pods-ASDKgram-Swift-umbrella.h"
+
+  export *
+  module * { export * }
+}
