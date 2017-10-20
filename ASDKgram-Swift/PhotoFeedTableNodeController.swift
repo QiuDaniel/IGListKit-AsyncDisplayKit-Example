@@ -96,7 +96,7 @@ extension PhotoFeedTableNodeController: ASTableDataSource, ASTableDelegate {
 	
 	func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
 		let photo = photoFeed.photos[indexPath.row]
-		let nodeBlock: ASCellNodeBlock = { _ in
+		let nodeBlock: ASCellNodeBlock = { 
 			return PhotoTableNodeCell(photoModel: photo)
 		}
 		return nodeBlock

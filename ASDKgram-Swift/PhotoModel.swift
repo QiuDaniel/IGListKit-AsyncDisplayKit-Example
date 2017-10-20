@@ -62,16 +62,16 @@ extension PhotoModel {
 	
 	func attrStringForUserName(withSize size: CGFloat) -> NSAttributedString {
 		let attr = [
-			NSForegroundColorAttributeName : UIColor.darkGray,
-			NSFontAttributeName: UIFont.boldSystemFont(ofSize: size)
+			NSAttributedStringKey.foregroundColor : UIColor.darkGray,
+			NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: size)
 		]
 		return NSAttributedString(string: self.ownerUserName, attributes: attr)
 	}
 	
 	func attrStringForDescription(withSize size: CGFloat) -> NSAttributedString {
 		let attr = [
-			NSForegroundColorAttributeName : UIColor.darkGray,
-			NSFontAttributeName: UIFont.systemFont(ofSize: size)
+			NSAttributedStringKey.foregroundColor : UIColor.darkGray,
+			NSAttributedStringKey.font: UIFont.systemFont(ofSize: size)
 		]
 		return NSAttributedString(string: self.descriptionText, attributes: attr)
 	}
@@ -82,10 +82,10 @@ extension PhotoModel {
 		formatter.numberStyle = .decimal
 		let formattedLikesNumber: String? = formatter.string(from: NSNumber(value: self.likesCount))
 		let likesString: String = "\(formattedLikesNumber!) Likes"
-		let textAttr = [NSForegroundColorAttributeName : UIColor.mainBarTintColor(), NSFontAttributeName: UIFont.systemFont(ofSize: size)]
+		let textAttr = [NSAttributedStringKey.foregroundColor : UIColor.mainBarTintColor(), NSAttributedStringKey.font: UIFont.systemFont(ofSize: size)]
 		let likesAttrString = NSAttributedString(string: likesString, attributes: textAttr)
 		
-		let heartAttr = [NSForegroundColorAttributeName : UIColor.red, NSFontAttributeName: UIFont.systemFont(ofSize: size)]
+		let heartAttr = [NSAttributedStringKey.foregroundColor : UIColor.red, NSAttributedStringKey.font: UIFont.systemFont(ofSize: size)]
 		let heartAttrString = NSAttributedString(string: "♥︎ ", attributes: heartAttr)
 		
 		let combine = NSMutableAttributedString()
@@ -97,8 +97,8 @@ extension PhotoModel {
 	func attrStringForTimeSinceString(withSize size: CGFloat) -> NSAttributedString {
 		
 		let attr = [
-			NSForegroundColorAttributeName : UIColor.mainBarTintColor(),
-			NSFontAttributeName: UIFont.systemFont(ofSize: size)
+			NSAttributedStringKey.foregroundColor : UIColor.mainBarTintColor(),
+			NSAttributedStringKey.font: UIFont.systemFont(ofSize: size)
 		]
 		
 		let date = Date.iso8601Formatter.date(from: self.dateString)!

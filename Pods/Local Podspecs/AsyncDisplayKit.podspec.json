@@ -1,6 +1,6 @@
 {
   "name": "AsyncDisplayKit",
-  "version": "2.2",
+  "version": "2.3.1",
   "license": {
     "type": "BSD"
   },
@@ -11,7 +11,7 @@
   "summary": "Smooth asynchronous user interfaces for iOS apps.",
   "source": {
     "git": "https://github.com/facebook/AsyncDisplayKit.git",
-    "tag": "2.2"
+    "tag": "2.3.1"
   },
   "deprecated_in_favor_of": "Texture",
   "documentation_url": "http://asyncdisplaykit.org/appledoc/",
@@ -70,7 +70,7 @@
       "name": "IGListKit",
       "dependencies": {
         "IGListKit": [
-          "2.1.0"
+          "3.1.1"
         ],
         "AsyncDisplayKit/Core": [
 

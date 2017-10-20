@@ -10,13 +10,12 @@ import UIKit
 import AsyncDisplayKit
 
 
-class PhotoFeedSectionController: ASCollectionSectionController, ASSectionController, IGListSectionType {
+class PhotoFeedSectionController: ASCollectionSectionController, ASSectionController {
     
     var photoFeed: PhotoFeedModel?
 
-    // MARK: - IGListSectionType
 
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         if let other = object as? DiffUtility.DiffableBox<PhotoFeedModel> {
             photoFeed = other.value
             if let photos = photoFeed?.photos {
@@ -25,16 +24,16 @@ class PhotoFeedSectionController: ASCollectionSectionController, ASSectionContro
         }       
     }
     
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         let cell = ASIGListSectionControllerMethods.cellForItem(at: index, sectionController: self)
         return cell
     }
     
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         return ASIGListSectionControllerMethods .sizeForItem(at: index)
     }
     
-    func didSelectItem(at index: Int) {
+    override func didSelectItem(at index: Int) {
         
     }
     
@@ -42,7 +41,7 @@ class PhotoFeedSectionController: ASCollectionSectionController, ASSectionContro
     
     func nodeBlockForItem(at index: Int) -> ASCellNodeBlock {
         let photo = photoFeed?.photos[index]
-        let nodeBlock: ASCellNodeBlock = { _ in
+        let nodeBlock: ASCellNodeBlock = { 
             let node = PhotoTableNodeCell(photoModel: photo!)
             return node
         }
@@ -78,7 +77,7 @@ class PhotoFeedSectionController: ASCollectionSectionController, ASSectionContro
     
 }
 
-extension PhotoFeedSectionController: IGListSupplementaryViewSource {
+extension PhotoFeedSectionController: ListSupplementaryViewSource {
     func supportedElementKinds() -> [String] {
         return [UICollectionElementKindSectionHeader]
     }

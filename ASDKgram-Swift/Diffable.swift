@@ -29,7 +29,7 @@ public struct DiffUtility {
     public static func diff<T: Diffable>(originalItems: [T], newItems: [T]) -> DiffResult {
         let old = originalItems.map({ DiffableBox(value: $0, identifier: $0.diffIdentifier as NSObjectProtocol, equal: ==) })
         let new = newItems.map({ DiffableBox(value: $0, identifier: $0.diffIdentifier as NSObjectProtocol, equal: ==) })
-        let result = IGListDiff(old, new, .equality)
+        let result = ListDiff(oldArray: old, newArray: new, option: .equality)
         
         let inserts = result.inserts
         let deletes = result.deletes
@@ -46,7 +46,7 @@ public struct DiffUtility {
         return DiffResult(inserts: inserts, deletes: deletes, updates: updates, moves: moves, oldIndexForID: oldIndexForID, newIndexForID: newIndexForID)
     }
     
-    public final class DiffableBox<T: Diffable>: IGListDiffable {
+    public final class DiffableBox<T: Diffable>: ListDiffable {
         
         let value: T
         let identifier: NSObjectProtocol
@@ -64,7 +64,7 @@ public struct DiffUtility {
             return identifier
         }
         
-        public func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+        public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
             if let other = object as? DiffableBox<T> {
                 return equal(value, other.value)
             }

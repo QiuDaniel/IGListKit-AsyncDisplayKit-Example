@@ -12,8 +12,8 @@ import AsyncDisplayKit
 
 class PhotoFeedListKitViewController: ASViewController<ASCollectionNode> {
     
-    lazy var adapter: IGListAdapter = {
-        let listAdapter = IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+    lazy var adapter: ListAdapter = {
+        let listAdapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
         return listAdapter
     }()
     
@@ -48,21 +48,21 @@ class PhotoFeedListKitViewController: ASViewController<ASCollectionNode> {
 
 }
 
-extension PhotoFeedListKitViewController: IGListAdapterDataSource {
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return [DiffUtility.DiffableBox(value: self.photoFeed, identifier: self.photoFeed.diffIdentifier as NSObjectProtocol, equal: ==)]
+extension PhotoFeedListKitViewController: ListAdapterDataSource {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        return [DiffUtility.DiffableBox(value: self.photoFeed, identifier: self.photoFeed.diffIdentifier as NSObjectProtocol, equal: ==) as ListDiffable]
         
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         if object is DiffUtility.DiffableBox<PhotoFeedModel> {
             return PhotoFeedSectionController()
         }
         
-        return IGListSectionController()
+        return ListSectionController()
     }
     
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }
 }

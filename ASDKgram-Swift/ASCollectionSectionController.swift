@@ -9,7 +9,7 @@
 import UIKit
 import IGListKit
 
-class ASCollectionSectionController: IGListSectionController {
+class ASCollectionSectionController: ListSectionController {
     fileprivate var diffingQueue: DispatchQueue {
         let queue = DispatchQueue(label: "ASCollectionSectionController.diffingQueue")
         return queue
@@ -21,7 +21,7 @@ class ASCollectionSectionController: IGListSectionController {
     
     fileprivate var pendingItmes: [PhotoModel] = [PhotoModel]()
     
-    func numberOfItems() -> Int {
+    override func numberOfItems() -> Int {
         if !initialItemsRead {
             pendingItmes = items
             initialItemsRead = true
@@ -43,17 +43,17 @@ class ASCollectionSectionController: IGListSectionController {
             self.pendingItmes = newItems
             DispatchQueue.main.async {
                 if let ctx = self.collectionContext {
-                    ctx.performBatch(animated: animated, updates: { 
-                        ctx.insert(in: self, at: result.inserts)
-                        ctx.delete(in: self, at: result.deletes)
-                        self.items = newItems;
+                        ctx.performBatch(animated: animated, updates: { bactchContext in
+                            bactchContext.insert(in: self, at: result.inserts)
+                            bactchContext.delete(in: self, at: result.deletes)
+                            self.items = newItems;
                     }, completion: { (finished) in
                         if let completion = completion {
                             completion()
                         }
 
                         if wasEmpty {
-                            let adapter = ctx as! IGListAdapter
+                            let adapter = ctx as! ListAdapter
                             adapter.performUpdates(animated: false, completion: nil)
                         }
                         
