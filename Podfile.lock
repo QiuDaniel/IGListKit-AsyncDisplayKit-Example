@@ -1,6 +1,6 @@
 PODS:
-  - AsyncDisplayKit/Core (2.3.1)
-  - AsyncDisplayKit/IGListKit (2.3.1):
+  - AsyncDisplayKit/Core (2.5)
+  - AsyncDisplayKit/IGListKit (2.5):
     - AsyncDisplayKit/Core
     - IGListKit (= 3.1.1)
   - IGListKit (3.1.1):
@@ -17,7 +17,7 @@ EXTERNAL SOURCES:
     :path: ../..
 
 SPEC CHECKSUMS:
-  AsyncDisplayKit: 409ad0f61c12c96d57368f38cd18b6cd005b3286
+  AsyncDisplayKit: fba41ee6645d8b6179f809f6f28bf3205f560b97
   IGListKit: cb97f405ae43e59fe1da74271e19427ec20d3c07
 
 PODFILE CHECKSUM: 1b4fd8c903f3e56201071f590d18ad545a68701d

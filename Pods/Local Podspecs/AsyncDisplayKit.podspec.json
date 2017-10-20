@@ -1,6 +1,6 @@
 {
   "name": "AsyncDisplayKit",
-  "version": "2.3.1",
+  "version": "2.5",
   "license": {
     "type": "BSD"
   },
@@ -11,7 +11,7 @@
   "summary": "Smooth asynchronous user interfaces for iOS apps.",
   "source": {
     "git": "https://github.com/facebook/AsyncDisplayKit.git",
-    "tag": "2.3.1"
+    "tag": "2.5"
   },
   "deprecated_in_favor_of": "Texture",
   "documentation_url": "http://asyncdisplaykit.org/appledoc/",
