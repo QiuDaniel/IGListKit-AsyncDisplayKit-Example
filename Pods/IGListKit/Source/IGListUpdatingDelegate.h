@@ -1,10 +1,8 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import <UIKit/UIKit.h>
@@ -31,11 +29,15 @@ typedef void (^IGListObjectTransitionBlock)(NSArray *toObjects);
 
 /// A block that contains all of the updates.
 NS_SWIFT_NAME(ListItemUpdateBlock)
-typedef void (^IGListItemUpdateBlock)();
+typedef void (^IGListItemUpdateBlock)(void);
 
 /// A block to be called when an adapter reloads the collection view.
 NS_SWIFT_NAME(ListReloadUpdateBlock)
-typedef void (^IGListReloadUpdateBlock)();
+typedef void (^IGListReloadUpdateBlock)(void);
+
+/// A block that returns an array of objects to transition to.
+NS_SWIFT_NAME(ListToObjectBlock)
+typedef NSArray * _Nullable (^IGListToObjectBlock)(void);
 
 /**
  Implement this protocol in order to handle both section and row based update events. Implementation should forward or
@@ -63,7 +65,7 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
 
  @param collectionView The collection view to perform the transition on.
  @param fromObjects The previous objects in the collection view. Objects must conform to `IGListDiffable`.
- @param toObjects The new objects in collection view. Objects must conform to `IGListDiffable`.
+ @param toObjectsBlock A block returning the new objects in the collection view. Objects must conform to `IGListDiffable`.
  @param animated A flag indicating if the transition should be animated.
  @param objectTransitionBlock A block that must be called when the adapter applies changes to the collection view.
  @param completion A completion block to execute when the update is finished.
@@ -77,7 +79,7 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
  */
 - (void)performUpdateWithCollectionView:(UICollectionView *)collectionView
                             fromObjects:(nullable NSArray<id <IGListDiffable>> *)fromObjects
-                              toObjects:(nullable NSArray<id <IGListDiffable>> *)toObjects
+                         toObjectsBlock:(nullable IGListToObjectBlock)toObjectsBlock
                                animated:(BOOL)animated
                   objectTransitionBlock:(IGListObjectTransitionBlock)objectTransitionBlock
                              completion:(nullable IGListUpdatingCompletion)completion;
@@ -124,6 +126,17 @@ NS_SWIFT_NAME(ListUpdatingDelegate)
                      fromIndexPath:(NSIndexPath *)fromIndexPath
                        toIndexPath:(NSIndexPath *)toIndexPath;
 
+/**
+ Tells the delegate to move a section from and to given indexes.
+ 
+ @param collectionView The collection view on which to perform the transition.
+ @param fromIndex The source index of the section to move.
+ @param toIndex The destination index of the section to move.
+ */
+- (void)moveSectionInCollectionView:(UICollectionView *)collectionView
+                          fromIndex:(NSInteger)fromIndex
+                            toIndex:(NSInteger)toIndex;
+    
 /**
  Completely reload data in the collection.
 

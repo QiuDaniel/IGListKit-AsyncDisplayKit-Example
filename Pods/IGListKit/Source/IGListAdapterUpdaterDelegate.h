@@ -1,10 +1,8 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import <UIKit/UIKit.h>
@@ -129,12 +127,14 @@ NS_SWIFT_NAME(ListAdapterUpdaterDelegate)
  Notifies the delegate that the collection view threw an exception in `-[UICollectionView performBatchUpdates:completion:]`.
 
  @param listAdapterUpdater The adapter updater owning the transition.
+ @param collectionView The collection view being updated.
  @param exception The exception thrown by the collection view.
  @param fromObjects The items transitioned from in the diff, if any.
  @param toObjects The items transitioned to in the diff, if any.
  @param updates The batch updates that were applied to the collection view.
  */
 - (void)listAdapterUpdater:(IGListAdapterUpdater *)listAdapterUpdater
+            collectionView:(UICollectionView *)collectionView
     willCrashWithException:(NSException *)exception
                fromObjects:(nullable NSArray *)fromObjects
                  toObjects:(nullable NSArray *)toObjects

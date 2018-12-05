@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import <UIKit/UIKit.h>
 
 #import <IGListKit/IGListAdapterDataSource.h>
 #import <IGListKit/IGListAdapterDelegate.h>
+#import <IGListKit/IGListAdapterMoveDelegate.h>
 #import <IGListKit/IGListCollectionContext.h>
+#import <IGListKit/IGListAdapterUpdateListener.h>
 
 #import <IGListKit/IGListExperiments.h>
 #import <IGListKit/IGListMacros.h>
@@ -77,6 +77,13 @@ NS_SWIFT_NAME(ListAdapter)
 @property (nonatomic, nullable, weak) id <UIScrollViewDelegate> scrollViewDelegate;
 
 /**
+ The object that receives `IGListAdapterMoveDelegate` events resulting from interactive reordering of sections.
+
+ @note This works with UICollectionView interactive reordering available on iOS 9.0+
+ */
+@property (nonatomic, nullable, weak) id <IGListAdapterMoveDelegate> moveDelegate NS_AVAILABLE_IOS(9_0);
+
+/**
  The updater for the adapter.
  */
 @property (nonatomic, strong, readonly) id <IGListUpdatingDelegate> updater;
@@ -130,6 +137,9 @@ NS_SWIFT_NAME(ListAdapter)
  Perform an immediate reload of the data in the data source, discarding the old objects.
 
  @param completion The block to execute when the reload completes.
+
+ @warning Do not use this method to update without animations as it can be very expensive to teardown and rebuild all
+ section controllers. Use `-[IGListAdapter performUpdatesAnimated:completion]` instead.
  */
 - (void)reloadDataWithCompletion:(nullable IGListUpdaterCompletion)completion;
 
@@ -260,6 +270,22 @@ NS_SWIFT_NAME(ListAdapter)
  */
 - (CGSize)sizeForSupplementaryViewOfKind:(NSString *)elementKind
                              atIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ Adds a listener to the list adapter.
+
+ @param updateListener The object conforming to the `IGListAdapterUpdateListener` protocol.
+
+ @note Listeners are held weakly so there is no need to call `-[IGListAdapter removeUpdateListener:]` on `dealloc`.
+ */
+- (void)addUpdateListener:(id<IGListAdapterUpdateListener>)updateListener;
+
+/**
+ Removes a listener from the list adapter.
+
+ @param updateListener The object conforming to the `IGListAdapterUpdateListener` protocol.
+ */
+- (void)removeUpdateListener:(id<IGListAdapterUpdateListener>)updateListener;
 
 /**
  :nodoc:

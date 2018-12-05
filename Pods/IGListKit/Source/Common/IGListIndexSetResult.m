@@ -1,10 +1,8 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import "IGListIndexSetResult.h"
@@ -24,12 +22,12 @@
                     oldIndexMap:(NSMapTable<id<NSObject>, NSNumber *> *)oldIndexMap
                     newIndexMap:(NSMapTable<id<NSObject>, NSNumber *> *)newIndexMap {
     if (self = [super init]) {
-        _inserts = [inserts copy];
-        _deletes = [deletes copy];
-        _updates = [updates copy];
-        _moves = [moves copy];
-        _oldIndexMap = [oldIndexMap copy];
-        _newIndexMap = [newIndexMap copy];
+        _inserts = inserts;
+        _deletes = deletes;
+        _updates = updates;
+        _moves = moves;
+        _oldIndexMap = oldIndexMap;
+        _newIndexMap = newIndexMap;
     }
     return self;
 }
@@ -90,8 +88,8 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@ %p; %zi inserts; %zi deletes; %zi updates; %zi moves>",
-            NSStringFromClass(self.class), self, self.inserts.count, self.deletes.count, self.updates.count, self.moves.count];
+    return [NSString stringWithFormat:@"<%@ %p; %lu inserts; %lu deletes; %lu updates; %lu moves>",
+            NSStringFromClass(self.class), self, (unsigned long)self.inserts.count, (unsigned long)self.deletes.count, (unsigned long)self.updates.count, (unsigned long)self.moves.count];
 }
 
 @end

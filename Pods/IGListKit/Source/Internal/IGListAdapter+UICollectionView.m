@@ -1,10 +1,8 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import "IGListAdapter+UICollectionView.h"
@@ -12,6 +10,8 @@
 #import <IGListKit/IGListAdapterInternal.h>
 #import <IGListKit/IGListAssert.h>
 #import <IGListKit/IGListSectionController.h>
+#import <IGListKit/IGListSectionControllerInternal.h>
+#import <IGListKit/UICollectionViewLayout+InteractiveReordering.h>
 
 @implementation IGListAdapter (UICollectionView)
 
@@ -23,10 +23,10 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     IGListSectionController * sectionController = [self sectionControllerForSection:section];
-    IGAssert(sectionController != nil, @"Nil section controller for section %zi for item %@. Check your -diffIdentifier and -isEqual: implementations.",
-            section, [self.sectionMap objectForSection:section]);
+    IGAssert(sectionController != nil, @"Nil section controller for section %li for item %@. Check your -diffIdentifier and -isEqual: implementations.",
+             (long)section, [self.sectionMap objectForSection:section]);
     const NSInteger numberOfItems = [sectionController numberOfItems];
-    IGAssert(numberOfItems >= 0, @"Cannot return negative number of items %zi for section controller %@.", numberOfItems, sectionController);
+    IGAssert(numberOfItems >= 0, @"Cannot return negative number of items %li for section controller %@.", (long)numberOfItems, sectionController);
     return numberOfItems;
 }
 
@@ -56,6 +56,58 @@
     [self mapView:view toSectionController:sectionController];
 
     return view;
+}
+    
+- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath {
+    const NSInteger sectionIndex = indexPath.section;
+    const NSInteger itemIndex = indexPath.item;
+    
+    IGListSectionController *sectionController = [self sectionControllerForSection:sectionIndex];
+    return [sectionController canMoveItemAtIndex:itemIndex];
+}
+    
+- (void)collectionView:(UICollectionView *)collectionView
+   moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath
+           toIndexPath:(NSIndexPath *)destinationIndexPath {
+
+    if (@available(iOS 9.0, *)) {
+        const NSInteger sourceSectionIndex = sourceIndexPath.section;
+        const NSInteger destinationSectionIndex = destinationIndexPath.section;
+        const NSInteger sourceItemIndex = sourceIndexPath.item;
+        const NSInteger destinationItemIndex = destinationIndexPath.item;
+
+        IGListSectionController *sourceSectionController = [self sectionControllerForSection:sourceSectionIndex];
+        IGListSectionController *destinationSectionController = [self sectionControllerForSection:destinationSectionIndex];
+
+        // this is a move within a section
+        if (sourceSectionController == destinationSectionController) {
+
+            if ([sourceSectionController canMoveItemAtIndex:sourceItemIndex toIndex:destinationItemIndex]) {
+                [self moveInSectionControllerInteractive:sourceSectionController
+                                               fromIndex:sourceItemIndex
+                                                 toIndex:destinationItemIndex];
+            } else {
+                // otherwise this is a move of an _item_ from one section to another section
+                // we need to revert the change as it's too late to cancel
+                [self revertInvalidInteractiveMoveFromIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+            }
+            return;
+        }
+
+        // this is a reordering of sections themselves
+        if ([sourceSectionController numberOfItems] == 1 && [destinationSectionController numberOfItems] == 1) {
+
+            // perform view changes in the collection view
+            [self moveSectionControllerInteractive:sourceSectionController
+                                         fromIndex:sourceSectionIndex
+                                           toIndex:destinationSectionIndex];
+            return;
+        }
+
+        // otherwise this is a move of an _item_ from one section to another section
+        // this is not currently supported, so we need to revert the change as it's too late to cancel
+        [self revertInvalidInteractiveMoveFromIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+    }
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -150,11 +202,38 @@
     [self removeMapForView:view];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    // forward this method to the delegate b/c this implementation will steal the message from the proxy
+    id<UICollectionViewDelegate> collectionViewDelegate = self.collectionViewDelegate;
+    if ([collectionViewDelegate respondsToSelector:@selector(collectionView:didHighlightItemAtIndexPath:)]) {
+        [collectionViewDelegate collectionView:collectionView didHighlightItemAtIndexPath:indexPath];
+    }
+
+    IGListSectionController * sectionController = [self sectionControllerForSection:indexPath.section];
+    [sectionController didHighlightItemAtIndex:indexPath.item];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    // forward this method to the delegate b/c this implementation will steal the message from the proxy
+    id<UICollectionViewDelegate> collectionViewDelegate = self.collectionViewDelegate;
+    if ([collectionViewDelegate respondsToSelector:@selector(collectionView:didUnhighlightItemAtIndexPath:)]) {
+        [collectionViewDelegate collectionView:collectionView didUnhighlightItemAtIndexPath:indexPath];
+    }
+
+    IGListSectionController * sectionController = [self sectionControllerForSection:indexPath.section];
+    [sectionController didUnhighlightItemAtIndex:indexPath.item];
+}
+
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     IGAssert(![self.collectionViewDelegate respondsToSelector:_cmd], @"IGListAdapter is consuming method also implemented by the collectionViewDelegate: %@", NSStringFromSelector(_cmd));
-    return [self sizeForItemAtIndexPath:indexPath];
+    
+    CGSize size = [self sizeForItemAtIndexPath:indexPath];
+    IGAssert(!isnan(size.height), @"IGListAdapter returned NaN height = %f for item at indexPath <%@>", size.height, indexPath);
+    IGAssert(!isnan(size.width), @"IGListAdapter returned NaN width = %f for item at indexPath <%@>", size.width, indexPath);
+    
+    return size;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -182,6 +261,36 @@
     IGAssert(![self.collectionViewDelegate respondsToSelector:_cmd], @"IGListAdapter is consuming method also implemented by the collectionViewDelegate: %@", NSStringFromSelector(_cmd));
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
     return [self sizeForSupplementaryViewOfKind:UICollectionElementKindSectionFooter atIndexPath:indexPath];
+}
+
+#pragma mark - IGListCollectionViewDelegateLayout
+
+- (UICollectionViewLayoutAttributes *)collectionView:(UICollectionView *)collectionView
+                                              layout:(UICollectionViewLayout*)collectionViewLayout
+                   customizedInitialLayoutAttributes:(UICollectionViewLayoutAttributes *)attributes
+                                         atIndexPath:(NSIndexPath *)indexPath {
+    IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
+    if (sectionController.transitionDelegate) {
+        return [sectionController.transitionDelegate listAdapter:self
+                               customizedInitialLayoutAttributes:attributes
+                                               sectionController:sectionController
+                                                         atIndex:indexPath.item];
+    }
+    return attributes;
+}
+
+- (UICollectionViewLayoutAttributes *)collectionView:(UICollectionView *)collectionView
+                                              layout:(UICollectionViewLayout*)collectionViewLayout
+                     customizedFinalLayoutAttributes:(UICollectionViewLayoutAttributes *)attributes
+                                         atIndexPath:(NSIndexPath *)indexPath {
+    IGListSectionController *sectionController = [self sectionControllerForSection:indexPath.section];
+    if (sectionController.transitionDelegate) {
+        return [sectionController.transitionDelegate listAdapter:self
+                                 customizedFinalLayoutAttributes:attributes
+                                               sectionController:sectionController
+                                                         atIndex:indexPath.item];
+    }
+    return attributes;
 }
 
 @end

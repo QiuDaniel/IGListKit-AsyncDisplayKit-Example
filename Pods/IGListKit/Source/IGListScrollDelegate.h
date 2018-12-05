@@ -1,10 +1,8 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import <UIKit/UIKit.h>
@@ -46,6 +44,8 @@ NS_SWIFT_NAME(ListScrollDelegate)
  */
 - (void)listAdapter:(IGListAdapter *)listAdapter didEndDraggingSectionController:(IGListSectionController *)sectionController willDecelerate:(BOOL)decelerate;
 
+@optional
+
 /**
  Tells the delegate that the section controller did end decelerating on screen.
 
@@ -54,7 +54,6 @@ NS_SWIFT_NAME(ListScrollDelegate)
 
  @note This method is `@optional` until the next breaking-change release.
  */
-@optional
 - (void)listAdapter:(IGListAdapter *)listAdapter didEndDeceleratingSectionController:(IGListSectionController *)sectionController;
 
 @end

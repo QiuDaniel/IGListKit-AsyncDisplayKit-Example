@@ -1,10 +1,8 @@
 /**
  * Copyright (c) 2016-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import <UIKit/UIKit.h>
@@ -88,6 +86,22 @@ NS_SWIFT_NAME(ListCollectionViewLayout)
  */
 @property (nonatomic, assign) CGFloat stickyHeaderYOffset;
 
+/**
+ Set this to `YES` to show sticky header when a section had no item. Default is `NO`.
+*/
+@property (nonatomic, assign) BOOL showHeaderWhenEmpty;
+
+/**
+ Notify the layout that a specific section was modified before invalidation. Used to optimize layout re-calculation.
+
+ @note When updating a collection view (ex: calling `-insertSections`), `-invalidateLayoutWithContext` gets called on
+ the layout object. However, the invalidation context doesn't provide details on which index paths are being modified,
+ which typically forces a full layout re-calculation. We can use this method to keep track of which section actually
+ needs to be updated on the following `-invalidateLayoutWithContext`. See `IGListCollectionView`.
+
+ @param modifiedSection The section that was modified.
+ */
+- (void)didModifySection:(NSInteger)modifiedSection;
 
 /**
  Create and return a new collection view layout.

@@ -1,25 +1,26 @@
 PODS:
-  - AsyncDisplayKit/Core (2.5)
-  - AsyncDisplayKit/IGListKit (2.5):
-    - AsyncDisplayKit/Core
-    - IGListKit (= 3.1.1)
-  - IGListKit (3.1.1):
-    - IGListKit/Default (= 3.1.1)
-  - IGListKit/Default (3.1.1):
+  - IGListKit (3.4.0):
+    - IGListKit/Default (= 3.4.0)
+  - IGListKit/Default (3.4.0):
     - IGListKit/Diffing
-  - IGListKit/Diffing (3.1.1)
+  - IGListKit/Diffing (3.4.0)
+  - Texture/Core (2.7)
+  - Texture/IGListKit (2.7):
+    - IGListKit (~> 3.0)
+    - Texture/Core
 
 DEPENDENCIES:
-  - AsyncDisplayKit/IGListKit (from `../..`)
+  - Texture/IGListKit
 
-EXTERNAL SOURCES:
-  AsyncDisplayKit:
-    :path: ../..
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - IGListKit
+    - Texture
 
 SPEC CHECKSUMS:
-  AsyncDisplayKit: fba41ee6645d8b6179f809f6f28bf3205f560b97
-  IGListKit: cb97f405ae43e59fe1da74271e19427ec20d3c07
+  IGListKit: 7a5d788e9fb746bcd402baa8e8b24bc3bd2a5a07
+  Texture: 9d7e38965cf22ccd7cd9c249dd78b3f14e70ab6c
 
-PODFILE CHECKSUM: 1b4fd8c903f3e56201071f590d18ad545a68701d
+PODFILE CHECKSUM: 380f593f1f65be900399417be8cb50558c393578
 
-COCOAPODS: 1.4.0.beta.1
+COCOAPODS: 1.5.2
