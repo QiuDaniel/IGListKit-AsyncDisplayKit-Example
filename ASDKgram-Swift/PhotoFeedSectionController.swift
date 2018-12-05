@@ -78,7 +78,7 @@ class PhotoFeedSectionController: ASCollectionSectionController, ASSectionContro
 
 extension PhotoFeedSectionController: ListSupplementaryViewSource {
     func supportedElementKinds() -> [String] {
-        return [UICollectionElementKindSectionHeader]
+        return [UICollectionView.elementKindSectionHeader]
     }
     
     func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {

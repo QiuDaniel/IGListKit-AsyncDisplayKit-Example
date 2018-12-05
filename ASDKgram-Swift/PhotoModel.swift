@@ -89,16 +89,16 @@ extension PhotoModel {
 	
 	func attributedStringForUserName(withSize size: CGFloat) -> NSAttributedString {
 		let attributes = [
-			NSAttributedStringKey.foregroundColor : UIColor.darkGray,
-            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: size)
+            NSAttributedString.Key.foregroundColor : UIColor.darkGray,
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: size)
 		]
 		return NSAttributedString(string: user.userName, attributes: attributes)
 	}
 	
 	func attributedStringForDescription(withSize size: CGFloat) -> NSAttributedString {
 		let attributes = [
-			NSAttributedStringKey.foregroundColor : UIColor.darkGray,
-			NSAttributedStringKey.font: UIFont.systemFont(ofSize: size)
+            NSAttributedString.Key.foregroundColor : UIColor.darkGray,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: size)
 		]
 		return NSAttributedString(string: descriptionText ?? "", attributes: attributes)
 	}
@@ -109,15 +109,15 @@ extension PhotoModel {
         }
 		
         let likesAttributes = [
-            NSAttributedStringKey.foregroundColor : UIColor.red,
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: size)
+            NSAttributedString.Key.foregroundColor : UIColor.red,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: size)
             ]
         
 		let likesAttrString = NSAttributedString(string: "\(formattedLikesNumber) Likes", attributes: likesAttributes)
 		
 		let heartAttributes = [
-            NSAttributedStringKey.foregroundColor : UIColor.mainBarTintColor,
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: size)
+            NSAttributedString.Key.foregroundColor : UIColor.mainBarTintColor,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: size)
         ]
 		let heartAttrString = NSAttributedString(string: "♥︎ ", attributes: heartAttributes)
 		
@@ -133,9 +133,9 @@ extension PhotoModel {
         }
 
         let attributes = [
-			NSAttributedStringKey.foregroundColor : UIColor.mainBarTintColor,
-			NSAttributedStringKey.font: UIFont.systemFont(ofSize: size)
-            ] as [NSAttributedStringKey : Any]
+            NSAttributedString.Key.foregroundColor : UIColor.mainBarTintColor,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: size)
+            ]
 		
 		return NSAttributedString(string: Date.timeStringSince(fromConverted: date), attributes: attributes)
 	}

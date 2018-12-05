@@ -57,7 +57,7 @@ class PhotoFeedTableViewController: UITableViewController {
     
 	// helper functions
 	func setupActivityIndicator() {
-		let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let activityIndicator = UIActivityIndicatorView(style: .gray)
 		self.activityIndicator = activityIndicator
 		self.tableView.addSubview(activityIndicator)
 		activityIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -70,7 +70,7 @@ class PhotoFeedTableViewController: UITableViewController {
 	func configureTableView() {
 		tableView.register(PhotoTableViewCell.self, forCellReuseIdentifier: "photoCell")
 		tableView.allowsSelection = false
-		tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
 		tableView.separatorStyle = .none
 	}
 }

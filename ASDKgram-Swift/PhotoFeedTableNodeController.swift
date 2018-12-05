@@ -22,7 +22,7 @@ import AsyncDisplayKit
 class PhotoFeedTableNodeController: ASViewController<ASTableNode> {
 	
     private lazy var activityIndicator: UIActivityIndicatorView = {
-        return UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        return UIActivityIndicatorView(style: .gray)
     }()
     var photoFeed = PhotoFeedModel(photoFeedModelType: .photoFeedModelTypePopular)
     
