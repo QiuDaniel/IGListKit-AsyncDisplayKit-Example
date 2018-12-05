@@ -24,44 +24,18 @@ extension URL {
 	static func URLForFeedModelType(feedModelType: PhotoFeedModelType) -> URL {
 		switch feedModelType {
 		case .photoFeedModelTypePopular:
-			return URL(string: assemble500PXURLString(endpoint: Constants.PX500.URLS.PopularEndpoint))!
+			return URL(string: assembleUnsplashURLString(endpoint: Constants.Unsplash.URLS.PopularEndpoint))!
 
 		case .photoFeedModelTypeLocation:
-			return URL(string: assemble500PXURLString(endpoint: Constants.PX500.URLS.SearchEndpoint))!
+			return URL(string: assembleUnsplashURLString(endpoint: Constants.Unsplash.URLS.SearchEndpoint))!
 
 		case .photoFeedModelTypeUserPhotos:
-			return URL(string: assemble500PXURLString(endpoint: Constants.PX500.URLS.UserEndpoint))!
+			return URL(string: assembleUnsplashURLString(endpoint: Constants.Unsplash.URLS.UserEndpoint))!
 		}
 	}
 
-	private static func assemble500PXURLString(endpoint: String) -> String {
-		return Constants.PX500.URLS.Host + endpoint + Constants.PX500.URLS.ConsumerKey
-	}
-
-	mutating func addImageParameterForClosestImageSizeAndpage(size: CGSize, page: Int) -> URL {
-
-		let imageParameterID: Int
-
-		if size.height <= 70 {
-			imageParameterID = 1
-		} else if size.height <= 100 {
-				imageParameterID = 100
-		} else if size.height <= 140 {
-				imageParameterID = 2
-		} else if size.height <= 200 {
-				imageParameterID = 200
-		} else if size.height <= 280 {
-				imageParameterID = 3
-		} else if size.height <= 400 {
-				imageParameterID = 400
-		} else {
-				imageParameterID = 600
-		}
-
-		var urlString = self.absoluteString
-		urlString.append("&image_size=\(imageParameterID)&page=\(page)")
-
-		return URL(string: urlString)!
+	private static func assembleUnsplashURLString(endpoint: String) -> String {
+		return Constants.Unsplash.URLS.Host + endpoint + Constants.Unsplash.URLS.ConsumerKey
 	}
 
 }

@@ -22,13 +22,11 @@ import UIKit
 class PhotoFeedTableViewController: UITableViewController {
 	
 	var activityIndicator: UIActivityIndicatorView!
-	var photoFeed: PhotoFeedModel
+	var photoFeed = PhotoFeedModel(photoFeedModelType: .photoFeedModelTypePopular)
 	
 	init() {
-		photoFeed = PhotoFeedModel(initWithPhotoFeedModelType: .photoFeedModelTypePopular, requiredImageSize: screenSizeForWidth)
 		super.init(nibName: nil, bundle: nil)
-		self.navigationItem.title = "UIKit"
-		
+		navigationItem.title = "UIKit"
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -56,13 +54,7 @@ class PhotoFeedTableViewController: UITableViewController {
 			}
 		}
 	}
-	
-	var screenSizeForWidth: CGSize = {
-		let screenRect = UIScreen.main.bounds
-		let screenScale = UIScreen.main.scale
-		return CGSize(width: screenRect.size.width * screenScale, height: screenRect.size.width * screenScale)
-	}()
-	
+    
 	// helper functions
 	func setupActivityIndicator() {
 		let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
@@ -87,7 +79,7 @@ extension PhotoFeedTableViewController {
 	
 	func addRowsIntoTableView(newPhotoCount newPhotos: Int) {
 		
-		let indexRange = (photoFeed.photos.count - newPhotos..<photoFeed.photos.count)
+		let indexRange = (photoFeed.numberOfItems - newPhotos..<photoFeed.numberOfItems)
 		let indexPaths = indexRange.map { IndexPath(row: $0, section: 0) }
 		tableView.insertRows(at: indexPaths, with: .none)
 	}
@@ -95,17 +87,17 @@ extension PhotoFeedTableViewController {
 	// TableView Data Source
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return photoFeed.photos.count
+		return photoFeed.numberOfItems
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: "photoCell", for: indexPath) as? PhotoTableViewCell else { fatalError("Wrong cell type") }
-		cell.photoModel = photoFeed.photos[indexPath.row]
+		cell.photoModel = photoFeed.itemAtIndexPath(indexPath)
 		return cell
 	}
 	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return PhotoTableViewCell.height(for: photoFeed.photos[indexPath.row], withWidth: self.view.frame.size.width)
+		return PhotoTableViewCell.height(for: photoFeed.itemAtIndexPath(indexPath), withWidth: self.view.frame.size.width)
 	}
 	
 	override func scrollViewDidScroll(_ scrollView: UIScrollView) {

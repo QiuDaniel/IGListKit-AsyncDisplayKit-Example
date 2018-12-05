@@ -43,12 +43,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		let tabBarController = UITabBarController()
 		tabBarController.viewControllers = [UIKitNavController, ASDKNavController, ListKitNavController]
-		tabBarController.selectedIndex = 1
-		tabBarController.tabBar.tintColor = UIColor.mainBarTintColor()
+		tabBarController.selectedIndex = 0
+		tabBarController.tabBar.tintColor = UIColor.mainBarTintColor
 
 		// Nav Bar appearance
 
-		UINavigationBar.appearance().barTintColor = UIColor.mainBarTintColor()
+		UINavigationBar.appearance().barTintColor = UIColor.mainBarTintColor
 
 		// UIWindow
 

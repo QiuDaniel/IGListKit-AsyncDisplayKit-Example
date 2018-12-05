@@ -25,13 +25,14 @@ final class WebService {
 		URLSession.shared.dataTask(with: resource.url) { data, response, error in
 			// Check for errors in responses.
 			let result = self.checkForNetworkErrors(data, response, error)
-			
-			switch result {
-			case .success(let data):
-				completion(resource.parse(data))
-			case .failure(let error):
-				completion(.failure(error))
-			}
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    completion(resource.parse(data, response))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
 		}.resume()
 	}
 }
@@ -41,11 +42,12 @@ extension WebService {
 	fileprivate func checkForNetworkErrors(_ data: Data?, _ response: URLResponse?, _ error: Error?) -> Result<Data> {
 		// Check for errors in responses.
 		guard error == nil else {
-            if (error! as NSError).domain == NSURLErrorDomain && ((error! as NSError).code == NSURLErrorNotConnectedToInternet || (error! as NSError).code == NSURLErrorTimedOut) {
-				return .failure(.noInternetConnection)
-			} else {
-				return .failure(.returnedError(error!))
-			}
+            switch error! {
+            case URLError.notConnectedToInternet, URLError.timedOut:
+                return .failure(.noInternetConnection)
+            default:
+                return .failure(.returnedError(error!))
+            }
 		}
 		
 		guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
@@ -58,22 +60,38 @@ extension WebService {
 	}
 }
 
+struct ResponseMetadata {
+    let currentPage: Int
+    let itemsTotal: Int
+    let itemsPerPage: Int
+}
+
+extension ResponseMetadata {
+    var pagesTotal: Int {
+        return itemsTotal / itemsPerPage
+    }
+}
+
 struct Resource<A> {
 	let url: URL
-	let parse: (Data) -> Result<A>
+	let parse: (Data, URLResponse?) -> Result<A>
 }
 
 extension Resource {
 	
-	init(url: URL, parseJSON: @escaping (Any) -> Result<A>) {
+    init(url: URL, page:Int, parseResponse: @escaping (ResponseMetadata, Data) -> Result<A>) {
+        
+        guard let url = URL(string: url.absoluteString.appending("&page=\(page)")) else { fatalError("Malformed URL given") }
 		self.url = url
-		self.parse = { data	in
-			do {
-				let jsonData = try JSONSerialization.jsonObject(with: data, options: [])
-				return parseJSON(jsonData)
-			} catch {
-				fatalError("Error parsing data")
-			}
+		self.parse = { data, response in
+			guard let httpUrlResponse = response as? HTTPURLResponse,
+            let xTotalString = httpUrlResponse.allHeaderFields["x-total"] as? String,
+            let xTotal = Int(xTotalString),
+            let xPerPageString = httpUrlResponse.allHeaderFields["x-per-page"] as? String,
+            let xPerPage = Int(xPerPageString)
+            else { return .failure(.errorParsingResponse) }
+            let metadata = ResponseMetadata(currentPage: page, itemsTotal: xTotal, itemsPerPage: xPerPage)
+            return parseResponse(metadata, data)
 		}
 	}
 }
@@ -84,6 +102,7 @@ enum Result<T> {
 }
 
 enum NetworkingErrors: Error {
+    case errorParsingResponse
 	case errorParsingJSON
 	case noInternetConnection
 	case dataReturnedNil

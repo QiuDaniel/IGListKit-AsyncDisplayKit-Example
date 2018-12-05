@@ -16,17 +16,13 @@ class PhotoFeedListKitViewController: ASViewController<ASCollectionNode> {
         let listAdapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
         return listAdapter
     }()
+    var photoFeed = PhotoFeedModel(photoFeedModelType: .photoFeedModelTypePopular)
     
-    var photoFeed: PhotoFeedModel
-    var screenSizeForWidth: CGSize = {
-        let screenRect = UIScreen.main.bounds
-        let screenScale = UIScreen.main.scale
-        return CGSize(width: screenRect.size.width * screenScale, height: screenRect.size.width * screenScale)
-    }()
+    // Lifecycle
     
     init() {
         let flowLayout = UICollectionViewFlowLayout()
-        photoFeed = PhotoFeedModel(initWithPhotoFeedModelType: .photoFeedModelTypePopular, requiredImageSize: screenSizeForWidth)
+
         super.init(node: ASCollectionNode(collectionViewLayout: flowLayout))
         adapter.setASDKCollectionNode(node)
         adapter.dataSource = self

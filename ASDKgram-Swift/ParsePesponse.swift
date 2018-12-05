@@ -19,16 +19,16 @@
 
 import Foundation
 
-func parsePopularPage(withURL: URL) -> Resource<PopularPageModel> {
+func parsePopularPage(withURL: URL, page: Int) -> Resource<PopularPageModel> {
 
-	let parse = Resource<PopularPageModel>(url: withURL, parseJSON: { jsonData in
-
-		guard let json = jsonData as? JSONDictionary, let photos = json["photos"] as? [JSONDictionary] else { return .failure(.errorParsingJSON)  }
-
-		guard let model = PopularPageModel(dictionary: json, photosArray: photos.flatMap(PhotoModel.init)) else { return .failure(.errorParsingJSON) }
-
-		return .success(model)
-	})
+    let parse = Resource<PopularPageModel>(url: withURL, page: page) { metaData, jsonData in
+        do {
+            let photos = try JSONDecoder().decode([PhotoModel].self, from: jsonData)
+            return .success(PopularPageModel(metaData: metaData, photos: photos))
+        } catch {
+            return .failure(.errorParsingJSON)
+        }
+	}
 
 	return parse
 }

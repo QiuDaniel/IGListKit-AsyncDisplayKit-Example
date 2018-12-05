@@ -21,14 +21,16 @@ import AsyncDisplayKit
 
 class PhotoFeedTableNodeController: ASViewController<ASTableNode> {
 	
-	var activityIndicator: UIActivityIndicatorView!
-	var photoFeed: PhotoFeedModel
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        return UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    }()
+    var photoFeed = PhotoFeedModel(photoFeedModelType: .photoFeedModelTypePopular)
+    
+    // MARK: LifeCycle
 	
-	init() {
-		photoFeed = PhotoFeedModel(initWithPhotoFeedModelType: .photoFeedModelTypePopular, requiredImageSize: screenSizeForWidth)
+    init() {
 		super.init(node: ASTableNode())
-		self.navigationItem.title = "ASDK"
-		
+		navigationItem.title = "ASDK"
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -37,34 +39,28 @@ class PhotoFeedTableNodeController: ASViewController<ASTableNode> {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		setupActivityIndicator()
 		node.allowsSelection = false
 		node.view.separatorStyle = .none
 		node.dataSource = self
 		node.delegate = self
-		node.view.leadingScreensForBatching = 2.5
+        node.leadingScreensForBatching = 2.5
 		navigationController?.hidesBarsOnSwipe = true
+        node.view.addSubview(activityIndicator)
 	}
 	
-	// helper functions
-	func setupActivityIndicator() {
-		let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-		self.activityIndicator = activityIndicator
-		let bounds = self.node.frame
-		var refreshRect = activityIndicator.frame
-		refreshRect.origin = CGPoint(x: (bounds.size.width - activityIndicator.frame.size.width) / 2.0, y: (bounds.size.height - activityIndicator.frame.size.height) / 2.0)
-		activityIndicator.frame = refreshRect
-		self.node.view.addSubview(activityIndicator)
-	}
-	
-	var screenSizeForWidth: CGSize = {
-		let screenRect = UIScreen.main.bounds
-		let screenScale = UIScreen.main.scale
-		return CGSize(width: screenRect.size.width * screenScale, height: screenRect.size.width * screenScale)
-	}()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let bounds = node.bounds
+        activityIndicator.frame.origin = CGPoint(x: (bounds.width - activityIndicator.frame.width) / 2.0, y: (bounds.height - activityIndicator.frame.height) / 2.0)
+        
+    }
 	
 	func fetchNewBatchWithContext(_ context: ASBatchContext?) {
-		activityIndicator.startAnimating()
+        DispatchQueue.main.async {
+            self.activityIndicator.startAnimating()
+        }
+		
 		photoFeed.updateNewBatchOfPopularPhotos() { additions, connectionStatus in
 			switch connectionStatus {
 			case .connected:
@@ -73,16 +69,13 @@ class PhotoFeedTableNodeController: ASViewController<ASTableNode> {
 				context?.completeBatchFetching(true)
 			case .noConnection:
 				self.activityIndicator.stopAnimating()
-				if context != nil {
-					context!.completeBatchFetching(true)
-				}
-				break
+                context?.completeBatchFetching(true)
 			}
 		}
 	}
 	
 	func addRowsIntoTableNode(newPhotoCount newPhotos: Int) {
-		let indexRange = (photoFeed.photos.count - newPhotos..<photoFeed.photos.count)
+		let indexRange = (photoFeed.numberOfItems - newPhotos..<photoFeed.numberOfItems)
 		let indexPaths = indexRange.map { IndexPath(row: $0, section: 0) }
 		node.insertRows(at: indexPaths, with: .none)
 	}
@@ -91,11 +84,11 @@ class PhotoFeedTableNodeController: ASViewController<ASTableNode> {
 extension PhotoFeedTableNodeController: ASTableDataSource, ASTableDelegate {
 	
 	func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-		return photoFeed.numberOfItemsInFeed
+		return photoFeed.numberOfItems
 	}
 	
 	func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-		let photo = photoFeed.photos[indexPath.row]
+		let photo = photoFeed.itemAtIndexPath(indexPath)
 		let nodeBlock: ASCellNodeBlock = { 
 			return PhotoTableNodeCell(photoModel: photo)
 		}

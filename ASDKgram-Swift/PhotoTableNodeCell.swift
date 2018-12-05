@@ -39,18 +39,22 @@ class PhotoTableNodeCell: ASCellNode {
 		return imageNode
 	}()
 	
+    // MARK: Lifecycle
+    
 	init(photoModel: PhotoModel) {
 		super.init()
-		self.photoImageNode.url = URL(string: photoModel.url)
-		self.avatarImageNode.url = URL(string: photoModel.ownerPicURL)
-		self.usernameLabel.attributedText = photoModel.attrStringForUserName(withSize: Constants.CellLayout.FontSize)
-		self.timeIntervalLabel.attributedText = photoModel.attrStringForTimeSinceString(withSize: Constants.CellLayout.FontSize)
-		self.photoLikesLabel.attributedText = photoModel.attrStringLikes(withSize: Constants.CellLayout.FontSize)
-		self.photoDescriptionLabel.attributedText = photoModel.attrStringForDescription(withSize: Constants.CellLayout.FontSize)
-		self.automaticallyManagesSubnodes = true
+        automaticallyManagesSubnodes = true
+		photoImageNode.url = URL(string: photoModel.url)
+		avatarImageNode.url = URL(string: photoModel.user.profileImage)
+		usernameLabel.attributedText = photoModel.attributedStringForUserName(withSize: Constants.CellLayout.FontSize)
+		timeIntervalLabel.attributedText = photoModel.attributedStringForTimeSinceString(withSize: Constants.CellLayout.FontSize)
+		photoLikesLabel.attributedText = photoModel.attributedStringLikes(withSize: Constants.CellLayout.FontSize)
+		photoDescriptionLabel.attributedText = photoModel.attributedStringForDescription(withSize: Constants.CellLayout.FontSize)
 	}
 	
-	override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    // MARK: ASDisplayNode
+    
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
 		
 		// Header Stack
 		
@@ -77,7 +81,11 @@ class PhotoTableNodeCell: ASCellNode {
 		
 		let verticalStack = ASStackLayoutSpec.vertical()
 		
-		verticalStack.children = [ASInsetLayoutSpec(insets: Constants.CellLayout.InsetForHeader, child: headerStack), ASRatioLayoutSpec(ratio: 1.0, child: photoImageNode), ASInsetLayoutSpec(insets: Constants.CellLayout.InsetForFooter, child: footerStack)]
+		verticalStack.children = [
+            ASInsetLayoutSpec(insets: Constants.CellLayout.InsetForHeader, child: headerStack),
+            ASRatioLayoutSpec(ratio: 1.0, child: photoImageNode),
+            ASInsetLayoutSpec(insets: Constants.CellLayout.InsetForFooter, child: footerStack)
+        ]
 		
 		return verticalStack
 	}

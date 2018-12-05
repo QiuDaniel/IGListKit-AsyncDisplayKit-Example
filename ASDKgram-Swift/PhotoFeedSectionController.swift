@@ -12,14 +12,14 @@ import AsyncDisplayKit
 
 class PhotoFeedSectionController: ASCollectionSectionController, ASSectionController {
     
-    var photoFeed: PhotoFeedModel?
+    var photoFeed = PhotoFeedModel(photoFeedModelType: .photoFeedModelTypePopular)
 
 
     override func didUpdate(to object: Any) {
         if let other = object as? DiffUtility.DiffableBox<PhotoFeedModel> {
             photoFeed = other.value
-            if let photos = photoFeed?.photos {
-                self.setItmes(newItems: photos, animated: false)
+            if photoFeed.photos.count > 0 {
+                self.setItmes(newItems: photoFeed.photos, animated: false)
             }
         }       
     }
@@ -40,9 +40,9 @@ class PhotoFeedSectionController: ASCollectionSectionController, ASSectionContro
     // MARK: - ASSectionController
     
     func nodeBlockForItem(at index: Int) -> ASCellNodeBlock {
-        let photo = photoFeed?.photos[index]
+        let photo = photoFeed.itemAtIndexPath(IndexPath(row: index, section: 0))
         let nodeBlock: ASCellNodeBlock = { 
-            let node = PhotoTableNodeCell(photoModel: photo!)
+            let node = PhotoTableNodeCell(photoModel: photo)
             return node
         }
         return nodeBlock
@@ -57,22 +57,21 @@ class PhotoFeedSectionController: ASCollectionSectionController, ASSectionContro
     
     // MARK: - Data
     func fetchNewBatchWithContext(_ context: ASBatchContext?)  {
-        if let photoFeed = photoFeed {
-            photoFeed.updateNewBatchOfPopularPhotos(additionsAndConnectionStatusCompletion: { (additions, connectionStatus) in
-                switch connectionStatus {
-                case .connected:
-                    self.setItmes(newItems: photoFeed.photos, animated: false, completion: {
-                        context?.completeBatchFetching(true)
-                    })
-                case .noConnection:
-                    if context != nil {
-                        context!.completeBatchFetching(true)
-                    }
-                    break
+        photoFeed.updateNewBatchOfPopularPhotos(additionsAndConnectionStatusCompletion: { [weak self] (additions, connectionStatus) in
+            guard let `self` = self else { return }
+            switch connectionStatus {
+            case .connected:
+                self.setItmes(newItems: self.photoFeed.photos, animated: false, completion: {
+                    context?.completeBatchFetching(true)
+                })
+            case .noConnection:
+                if context != nil {
+                    context!.completeBatchFetching(true)
                 }
+                break
+            }
 
-            })
-        }
+        })
     }
     
 }
