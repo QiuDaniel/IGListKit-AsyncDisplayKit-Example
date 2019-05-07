@@ -49,6 +49,12 @@ class PhotoFeedSectionController: ASCollectionSectionController, ASSectionContro
 
     }
     
+    func nodeForItem(at index: Int) -> ASCellNode {
+        let photo = photoFeed.itemAtIndexPath(IndexPath(row: index, section: 0))
+        let node = PhotoTableNodeCell(photoModel: photo)
+        return node
+    }
+    
     func beginBatchFetch(with context: ASBatchContext) {
         DispatchQueue.main.async {
             self.fetchNewBatchWithContext(context)

@@ -4,8 +4,8 @@ PODS:
   - IGListKit/Default (3.4.0):
     - IGListKit/Diffing
   - IGListKit/Diffing (3.4.0)
-  - Texture/Core (2.7)
-  - Texture/IGListKit (2.7):
+  - Texture/Core (2.8.1)
+  - Texture/IGListKit (2.8.1):
     - IGListKit (~> 3.0)
     - Texture/Core
 
@@ -19,8 +19,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   IGListKit: 7a5d788e9fb746bcd402baa8e8b24bc3bd2a5a07
-  Texture: 9d7e38965cf22ccd7cd9c249dd78b3f14e70ab6c
+  Texture: 8ecf6984065a1e54f06bf97b349ecca28582acd7
 
 PODFILE CHECKSUM: fbdc42ff35e465b5f2d0031d9a59493fadc842da
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.6.1
