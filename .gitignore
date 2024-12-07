@@ -29,7 +29,7 @@ crond/lock/*
 # http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control?
 #
 Pods/
-
+Podfile.lock
 
 ### AppCode ###
 ## Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
