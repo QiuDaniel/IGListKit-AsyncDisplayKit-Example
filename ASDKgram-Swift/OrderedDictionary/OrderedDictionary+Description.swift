@@ -1,11 +1,3 @@
-//
-//  OrderedDictionary+Description.swift
-//  Texture
-//
-//  Copyright (c) Pinterest, Inc.  All rights reserved.
-//  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
-//
-
 extension OrderedDictionary: CustomStringConvertible {
     
     /// A textual representation of the ordered dictionary.
@@ -28,7 +20,7 @@ extension OrderedDictionary {
     
     fileprivate func makeDescription(debug: Bool) -> String {
         // The implementation of the description is inspired by zwaldowski's implementation of the
-        // ordered dictionary. See http://bit.ly/2iqGhrb
+        // ordered dictionary. See https://bit.ly/2RiWfJu
         
         if isEmpty { return "[:]" }
         

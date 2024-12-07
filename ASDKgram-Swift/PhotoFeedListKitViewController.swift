@@ -10,7 +10,7 @@ import UIKit
 import IGListKit
 import AsyncDisplayKit
 
-class PhotoFeedListKitViewController: ASViewController<ASCollectionNode> {
+class PhotoFeedListKitViewController: ASDKViewController<ASCollectionNode> {
     
     lazy var adapter: ListAdapter = {
         let listAdapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
@@ -20,7 +20,7 @@ class PhotoFeedListKitViewController: ASViewController<ASCollectionNode> {
     
     // Lifecycle
     
-    init() {
+    override init() {
         let flowLayout = UICollectionViewFlowLayout()
 
         super.init(node: ASCollectionNode(collectionViewLayout: flowLayout))

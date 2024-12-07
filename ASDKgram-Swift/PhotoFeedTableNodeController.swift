@@ -19,7 +19,7 @@
 
 import AsyncDisplayKit
 
-class PhotoFeedTableNodeController: ASViewController<ASTableNode> {
+class PhotoFeedTableNodeController: ASDKViewController<ASTableNode> {
 	
     private lazy var activityIndicator: UIActivityIndicatorView = {
         return UIActivityIndicatorView(style: .gray)
@@ -28,7 +28,7 @@ class PhotoFeedTableNodeController: ASViewController<ASTableNode> {
     
     // MARK: LifeCycle
 	
-    init() {
+    override init() {
 		super.init(node: ASTableNode())
 		navigationItem.title = "ASDK"
 	}

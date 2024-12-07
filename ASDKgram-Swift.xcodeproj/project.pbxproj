@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,10 +25,13 @@
 		3AB33F9E1E22D9DB0039F711 /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB33F9D1E22D9DB0039F711 /* PhotoTableViewCell.swift */; };
 		3AB33FA21E230A160039F711 /* NetworkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB33FA11E230A160039F711 /* NetworkImageView.swift */; };
 		3AB33FA41E2337850039F711 /* PhotoTableNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB33FA31E2337850039F711 /* PhotoTableNodeCell.swift */; };
-		65537E6F21B77F3D00F13882 /* OrderedDictionary+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65537E6C21B77F3D00F13882 /* OrderedDictionary+Codable.swift */; };
-		65537E7021B77F3D00F13882 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65537E6D21B77F3D00F13882 /* OrderedDictionary.swift */; };
-		65537E7121B77F3D00F13882 /* OrderedDictionary+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65537E6E21B77F3D00F13882 /* OrderedDictionary+Description.swift */; };
 		65537E7321B79B6000F13882 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65537E7221B79B6000F13882 /* NumberFormatter.swift */; };
+		6554D8A42D04419D00F50231 /* OrderedDictionarySlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6554D8A22D04419D00F50231 /* OrderedDictionarySlice.swift */; };
+		6554D8A52D04419D00F50231 /* OrderedDictionary+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6554D8A12D04419D00F50231 /* OrderedDictionary+Description.swift */; };
+		6554D8A62D04419D00F50231 /* OrderedDictionary+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6554D89F2D04419D00F50231 /* OrderedDictionary+Codable.swift */; };
+		6554D8A72D04419D00F50231 /* OrderedDictionary+Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6554D8A02D04419D00F50231 /* OrderedDictionary+Deprecated.swift */; };
+		6554D8A82D04419D00F50231 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6554D89E2D04419D00F50231 /* OrderedDictionary.swift */; };
+		6554D8A92D04419D00F50231 /* Dictionary+OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6554D89D2D04419D00F50231 /* Dictionary+OrderedDictionary.swift */; };
 		6570DDF11F6F954600369D3E /* ASCollectionSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6570DDF01F6F954600369D3E /* ASCollectionSectionController.swift */; };
 		6570DDF71F6FC00500369D3E /* PhotoFeedSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6570DDF61F6FC00500369D3E /* PhotoFeedSectionController.swift */; };
 		6570DDFB1F70BB5800369D3E /* Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6570DDFA1F70BB5800369D3E /* Diffable.swift */; };
@@ -59,10 +62,13 @@
 		3AB33FA11E230A160039F711 /* NetworkImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkImageView.swift; sourceTree = "<group>"; };
 		3AB33FA31E2337850039F711 /* PhotoTableNodeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTableNodeCell.swift; sourceTree = "<group>"; };
 		4D7D664E4FF432C4AE232A56 /* Pods_ASDKgram_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASDKgram_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		65537E6C21B77F3D00F13882 /* OrderedDictionary+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OrderedDictionary+Codable.swift"; sourceTree = "<group>"; };
-		65537E6D21B77F3D00F13882 /* OrderedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
-		65537E6E21B77F3D00F13882 /* OrderedDictionary+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OrderedDictionary+Description.swift"; sourceTree = "<group>"; };
 		65537E7221B79B6000F13882 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
+		6554D89D2D04419D00F50231 /* Dictionary+OrderedDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+OrderedDictionary.swift"; sourceTree = "<group>"; };
+		6554D89E2D04419D00F50231 /* OrderedDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
+		6554D89F2D04419D00F50231 /* OrderedDictionary+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OrderedDictionary+Codable.swift"; sourceTree = "<group>"; };
+		6554D8A02D04419D00F50231 /* OrderedDictionary+Deprecated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OrderedDictionary+Deprecated.swift"; sourceTree = "<group>"; };
+		6554D8A12D04419D00F50231 /* OrderedDictionary+Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OrderedDictionary+Description.swift"; sourceTree = "<group>"; };
+		6554D8A22D04419D00F50231 /* OrderedDictionarySlice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDictionarySlice.swift; sourceTree = "<group>"; };
 		6570DDF01F6F954600369D3E /* ASCollectionSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASCollectionSectionController.swift; sourceTree = "<group>"; };
 		6570DDF61F6FC00500369D3E /* PhotoFeedSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoFeedSectionController.swift; sourceTree = "<group>"; };
 		6570DDFA1F70BB5800369D3E /* Diffable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Diffable.swift; sourceTree = "<group>"; };
@@ -103,7 +109,7 @@
 		3AB33F5C1E1F94530039F711 /* ASDKgram-Swift */ = {
 			isa = PBXGroup;
 			children = (
-				65537E6B21B77F3D00F13882 /* OrderedDictionary */,
+				6554D8A32D04419D00F50231 /* OrderedDictionary */,
 				3AB33F991E22CF160039F711 /* Views */,
 				3AB33F841E20E98C0039F711 /* Model */,
 				3AB33F7D1E1FDA890039F711 /* Client */,
@@ -201,12 +207,15 @@
 			name = ASDK;
 			sourceTree = "<group>";
 		};
-		65537E6B21B77F3D00F13882 /* OrderedDictionary */ = {
+		6554D8A32D04419D00F50231 /* OrderedDictionary */ = {
 			isa = PBXGroup;
 			children = (
-				65537E6C21B77F3D00F13882 /* OrderedDictionary+Codable.swift */,
-				65537E6D21B77F3D00F13882 /* OrderedDictionary.swift */,
-				65537E6E21B77F3D00F13882 /* OrderedDictionary+Description.swift */,
+				6554D89D2D04419D00F50231 /* Dictionary+OrderedDictionary.swift */,
+				6554D89E2D04419D00F50231 /* OrderedDictionary.swift */,
+				6554D89F2D04419D00F50231 /* OrderedDictionary+Codable.swift */,
+				6554D8A02D04419D00F50231 /* OrderedDictionary+Deprecated.swift */,
+				6554D8A12D04419D00F50231 /* OrderedDictionary+Description.swift */,
+				6554D8A22D04419D00F50231 /* OrderedDictionarySlice.swift */,
 			);
 			path = OrderedDictionary;
 			sourceTree = "<group>";
@@ -268,8 +277,9 @@
 		3AB33F521E1F94520039F711 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1610;
 				ORGANIZATIONNAME = Daniel;
 				TargetAttributes = {
 					3AB33F591E1F94520039F711 = {
@@ -319,11 +329,13 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ASDKgram-Swift/Pods-ASDKgram-Swift-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/IGListDiffKit/IGListDiffKit.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListDiffKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsyncDisplayKit.framework",
 			);
@@ -370,7 +382,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65537E7121B77F3D00F13882 /* OrderedDictionary+Description.swift in Sources */,
+				6554D8A42D04419D00F50231 /* OrderedDictionarySlice.swift in Sources */,
+				6554D8A52D04419D00F50231 /* OrderedDictionary+Description.swift in Sources */,
+				6554D8A62D04419D00F50231 /* OrderedDictionary+Codable.swift in Sources */,
+				6554D8A72D04419D00F50231 /* OrderedDictionary+Deprecated.swift in Sources */,
+				6554D8A82D04419D00F50231 /* OrderedDictionary.swift in Sources */,
+				6554D8A92D04419D00F50231 /* Dictionary+OrderedDictionary.swift in Sources */,
 				3AB33F781E1F9C400039F711 /* PhotoFeedTableNodeController.swift in Sources */,
 				6570DDF11F6F954600369D3E /* ASCollectionSectionController.swift in Sources */,
 				3A2362FB1E2D33A0007E08F1 /* Date.swift in Sources */,
@@ -380,7 +397,6 @@
 				657909BF1F59640900936FD3 /* PhotoFeedListKitViewController.swift in Sources */,
 				3AB33FA21E230A160039F711 /* NetworkImageView.swift in Sources */,
 				3AB33F8C1E2106F30039F711 /* URL.swift in Sources */,
-				65537E7021B77F3D00F13882 /* OrderedDictionary.swift in Sources */,
 				3AB33F831E20E81E0039F711 /* Constants.swift in Sources */,
 				6570DDFB1F70BB5800369D3E /* Diffable.swift in Sources */,
 				65537E7321B79B6000F13882 /* NumberFormatter.swift in Sources */,
@@ -391,7 +407,6 @@
 				6570DDF71F6FC00500369D3E /* PhotoFeedSectionController.swift in Sources */,
 				3AB33F9E1E22D9DB0039F711 /* PhotoTableViewCell.swift in Sources */,
 				3AB33F861E20E9B10039F711 /* PhotoFeedModel.swift in Sources */,
-				65537E6F21B77F3D00F13882 /* OrderedDictionary+Codable.swift in Sources */,
 				3AB33F881E20ED460039F711 /* PhotoModel.swift in Sources */,
 				3AB33F761E1F9C330039F711 /* PhotoFeedTableViewController.swift in Sources */,
 			);
@@ -415,6 +430,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -424,6 +440,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -431,8 +448,10 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -443,6 +462,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -457,7 +477,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -471,6 +491,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -480,6 +501,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -487,8 +509,10 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -499,6 +523,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -507,10 +532,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -523,9 +549,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = B3H446T9U7;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "ASDKgram-Swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.RenaldoMoon.ASDKgram-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
@@ -542,9 +572,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = B3H446T9U7;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "ASDKgram-Swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.RenaldoMoon.ASDKgram-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
